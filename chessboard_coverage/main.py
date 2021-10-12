@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import time
 
 
 class Board:
@@ -23,7 +24,8 @@ class Board:
 
         :return: None
         '''
-        plt.imshow(self.board, cmap=plt.cm.gray)
+        plt.imshow(self.board, cmap=plt.cm.bone)
+        # 函数负责对图像进行处理，并显示其格式，但是不能显示。其后跟着plt.show()才能显示出来。
         plt.colorbar()
         plt.show()
 
@@ -60,6 +62,7 @@ class Board:
                 x = center[0] + i[0]
                 y = center[1] + i[1]
                 self.fill_block(x, y)
+                plt.show()
         self.t += 1  # 标记号加一，标记下一骨牌
         for i in ls:
             if i != pos:  # 如果不是原有特殊点所在区块
@@ -75,11 +78,12 @@ class Board:
                 self.fill(x1, y1, size / 2, c_x, c_y)
 
 if __name__ == '__main__':
-    k = eval(input("请输入正整数K(棋盘大小2^2k,2^2k):\n"))
+    k = eval(input("请输入正整数K(棋盘大小2^k,2^k):\n"))
     loc_x = eval(input("请输入特殊点横坐标:\n"))
     loc_y = eval(input("请输入特殊点纵坐标:\n"))
-    size = 2 ** (2 * k)
+    size = 2 ** k
     b = Board(size, loc_x, loc_y)
     b.fill(0, 0, size, loc_x, loc_y)
     b.visualize()
     print(b.board)
+    print(len(b.board))
